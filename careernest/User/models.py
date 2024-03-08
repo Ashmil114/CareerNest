@@ -12,10 +12,10 @@ DEPARTMENT_OPTIONS= (
 
 
 def upload_certificate_to(instance, filename):
-    return f'certificates/{instance.name}/{filename}'
+    return f'certificates/{instance.user.username}/{filename}'
 
 def upload_resume_to(instance, filename):
-    return f'resume/{instance.name}/{filename}'
+    return f'resume/{instance.user.username}/{filename}'
 
 
 
