@@ -1,4 +1,5 @@
 from django.db import models
+from User.models import StudentModel
 
 # Create your models here.
 
@@ -19,3 +20,17 @@ class JobsModel(models.Model):
     
     def __str__(self) -> str:
         return self.title
+    
+JOB_STATUS = (
+    ("pending","pending"),
+    ("approved","approved"),
+    ("rejected","rejected")
+)
+
+class ApplyedJobModel(models.Model):
+    job = models.ForeignKey(JobsModel,on_delete=models.CASCADE)
+    user = models.ForeignKey(StudentModel,on_delete=models.CASCADE)
+    status = models.CharField(choices=JOB_STATUS,max_length=100,default='pending')
+    
+    def __str__(self) -> str:
+        return self.job.title
