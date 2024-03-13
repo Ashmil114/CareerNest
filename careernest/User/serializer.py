@@ -15,13 +15,15 @@ class StudentSerializer(serializers.ModelSerializer):
         depth=1
     
     def update(self, instance, validated_data):
-        print("Update Called")
         user_data = validated_data.pop('user', {})
         instance.department = validated_data.get('department', instance.department)
         instance.phone = validated_data.get('phone', instance.phone)
         instance.ten_certificate = validated_data.get('ten_certificate', instance.ten_certificate)
         instance.plustwo_certificate = validated_data.get('plustwo_certificate', instance.plustwo_certificate)
+        instance.degree_certificate = validated_data.get('degree_certificate', instance.degree_certificate)
         instance.resume = validated_data.get('resume', instance.resume)
+        instance.skills = validated_data.get('skills', instance.skills)
+        instance.image = validated_data.get('image', instance.image)
 
         if user_data:
             user_instance, created = User.objects.get_or_create(username=user_data.get('username'))
