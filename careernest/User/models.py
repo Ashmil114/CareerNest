@@ -21,7 +21,8 @@ def upload_resume_to(instance, filename):
 
 def upload_image_to(instance, filename):
     return f'user/profile/{instance.user.username}/{filename}'
-
+def default_skill():
+    return {0: "No"}
 
 class StudentModel(models.Model):
     
@@ -34,18 +35,10 @@ class StudentModel(models.Model):
     plustwo_certificate = models.FileField(upload_to=upload_certificate_to, null=True)
     degree_certificate = models.FileField(upload_to=upload_certificate_to, null=True)
     resume = models.FileField(upload_to=upload_resume_to,null=True)
-    skills = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Enter multiple values separated by commas."
-    )
+    skills = models.JSONField(default=default_skill)
     
     
-    def save(self, *args, **kwargs):
-        # Split the input string into a list of values
-        if self.skills:
-            self.skills = [s.strip() for s in self.skills.split(',')]
-        super().save(*args, **kwargs)
+   
     
     
     def __str__(self):

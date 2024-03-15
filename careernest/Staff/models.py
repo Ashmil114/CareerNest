@@ -15,6 +15,7 @@ class CompanyModel(models.Model):
 
 
 
+
 JOB_TYPE = (
     ("remote","remote"),
     ("parttime","parttime"),
@@ -22,38 +23,25 @@ JOB_TYPE = (
 )
 def upload_image_to(instance, filename):
     return f'staff/jobs/{instance.company}/{filename}'
+def default_qualifications():
+    return {0: "No"}
+def default_responsibility():
+    return {0: "No"}
 
 class JobsModel(models.Model):
     image = models.ImageField(upload_to=upload_image_to,null=True)
     title = models.CharField(max_length=255,null=True)
-    company = models.OneToOneField(CompanyModel,on_delete=models.CASCADE,related_name='job_company')
+    company = models.ForeignKey(CompanyModel,on_delete=models.CASCADE,related_name='job_company')
     type = models.CharField(choices=JOB_TYPE,max_length=100,null=True)
     vaccancies = models.IntegerField(null=True)
     package = models.CharField(max_length=100,null=True)
     experiance = models.FloatField(default=0,null=True)
     description = models.TextField(max_length=500,null=True)
-    qualifications = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Enter multiple values separated by commas."
-    )
-    responsibility =  models.TextField(
-        blank=True,
-        null=True,
-        help_text="Enter multiple values separated by commas."
-    )
+    qualifications = models.JSONField(default=default_qualifications)
+    responsibility =  models.JSONField(default=default_responsibility)
     
     
     
-    def save(self, *args, **kwargs):
-        if self.qualifications:
-            self.qualifications = [s.strip() for s in self.qualifications.split(',')]
-        super().save(*args, **kwargs)
-    
-    def save(self, *args, **kwargs):
-        if self.responsibility:
-            self.responsibility = [s.strip() for s in self.responsibility.split(',')]
-        super().save(*args, **kwargs)
     
     def __str__(self) -> str:
         return self.title

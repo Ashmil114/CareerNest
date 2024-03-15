@@ -23,7 +23,7 @@ class ApplyJobListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplyedJobModel
         fields = '__all__'
-        depth = 2
+        depth = 3
  
  
 class SaveJobListSerializer(serializers.ModelSerializer):

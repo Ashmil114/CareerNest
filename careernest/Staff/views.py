@@ -42,12 +42,15 @@ class JobsView(APIView):
         description =_data.get('description')
         qualifications =_data.get('qualifications')
         responsibility =_data.get('responsibility')
-        saved=False
+        # skills=_data.get('skills')
         
-        Jobs= JobsModel.objects.create(image=image,title=title,type=type,vaccancies=vaccancies,package=package,experiance=experiance,description=description,qualifications=qualifications,responsibility=responsibility,saved=saved,company=company)
-        print(Jobs)
-        return Response("Job Added")
-    
+        Already_Added=JobsModel.objects.filter(title=title,company=company)
+        if not Already_Added:
+            Jobs= JobsModel.objects.create(image=image,title=title,type=type,vaccancies=vaccancies,package=package,experiance=experiance,description=description,qualifications=qualifications,responsibility=responsibility,company=company)
+            print(Jobs)
+            return Response("Job Added")
+        else:
+            return Response("Job Already Added")
     
     
 class JobView(APIView):
