@@ -1,0 +1,62 @@
+1.USER
+
+    i. user/signup [post]
+
+            first_name,
+            last_name,
+            username,
+            email,
+            password
+    
+    ii.user/login [post]
+
+            username,
+            password
+    
+    iii.user/user-onboard/<user_id> [put]
+
+            image (image file)
+            first_name
+            last_name
+            phone 
+            department (select - CSE,ECE,MECH,CIVIL,OTHER)
+            ten_certificate (document file)
+            plustwo_certificate (document file)
+            degree_certificate  (document file)
+            resume (document file)
+            skills (json format)
+        
+    iv. user/ [get]   - USERS LIST
+
+
+2. STAFF
+
+    i. staff/job [GET,POST]
+            post
+                image
+                title
+                companyid
+                type
+                vaccancies
+                package
+                experiance
+                description
+                qualifications [json]
+                responsibility [json]
+            
+    
+    ii. staff/job/more/<job_id> [get,put]
+
+    iii. staff/job/apply-job [get,post]
+                post
+                    user_id
+                    job_id
+    
+    iv. staff/job/save[get,post]
+                post
+                    user_id
+                    job_id
+    
+    v. staff/companies [get]
+
+    
